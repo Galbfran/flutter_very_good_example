@@ -1,0 +1,20 @@
+name: feature_counter_base
+description: >
+  Feature plantilla (patrón example): cubit, dominio, datos con Dio + DTO
+  json_serializable, interceptor mock, presentación desacoplada. Tests: solo
+  estructura / esqueleto.
+version: 0.1.0
+
+environment:
+  mason: ^0.1.0-dev
+
+vars:
+  name:
+    type: string
+    description: Nombre del feature en snake_case (ej. example, invoice).
+    prompt: Nombre del feature (snake_case)?
+  package_name:
+    type: string
+    description: Campo name de pubspec.yaml (imports package:...).
+    default: flutter_very_good_example
+    prompt: Nombre del paquete Dart (pubspec name)?

@@ -1,0 +1,5 @@
+# Registro de bricks locales. Uso: `dart pub global activate mason_cli`
+# y en este directorio: `mason get` → `mason make feature_counter_base`.
+bricks:
+  feature_counter_base:
+    path: bricks/feature_counter_base
