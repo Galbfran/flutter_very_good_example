@@ -2,6 +2,10 @@
   "version": "0.2",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "globRoot": "..",
+  "language": "en,es",
+  "import": [
+    "https://cdn.jsdelivr.net/npm/@cspell/dict-es-es@3.0.8/cspell-ext.json"
+  ],
   "dictionaries": ["vgv_allowed", "vgv_forbidden"],
   "dictionaryDefinitions": [
     {
@@ -22,15 +26,30 @@
     "lib/features/**/README.md"
   ],
   "words": [
+    "agregá",
+    "asegurate",
+    "añadilas",
+    "cambiás",
+    "Completá",
     "Contador",
+    "Corré",
+    "Dio",
+    "editás",
     "Ejemplo",
     "ejemplo",
+    "generá",
+    "github",
+    "hardcodeados",
+    "Hola",
     "localizable",
+    "Mundo",
     "mostrado",
     "página",
+    "Podés",
+    "podés",
+    "revisá",
+    "Saludo",
     "Texto",
-    "Hola",
-    "Mundo",
-    "Saludo"
+    "vgv"
   ]
 }
