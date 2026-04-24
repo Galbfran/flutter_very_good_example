@@ -36,25 +36,34 @@ Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example
 
 ## Fase 2 — `core/` transversal
 
-- [ ] `lib/core/config/` — modelo de configuración por flavor (`apiBaseUrl`, flags de logging, etc.).
-- [ ] `lib/core/network/` — fábrica de `Dio` leyendo la config (timeouts, `baseUrl`).
-- [ ] `lib/core/network/interceptors/` — p. ej. log solo en dev/staging.
-- [ ] `lib/core/router/app_routes.dart` — paths y nombres de ruta estables (deep links después).
-- [ ] `lib/core/router/app_router.dart` — `GoRouter` y rutas iniciales.
+- [x] `lib/core/config/` — modelo de configuración por flavor (`apiBaseUrl`, flags de logging, etc.).  
+      **Hecho:** `app_config.dart` (`AppFlavor`, `AppConfig`, `String.fromEnvironment('API_BASE_URL', ...)`).
+- [x] `lib/core/network/` — fábrica de `Dio` leyendo la config (timeouts, `baseUrl`).  
+      **Hecho:** `dio_client.dart` → `createDio(AppConfig)`.
+- [x] `lib/core/network/interceptors/` — p. ej. log solo en dev/staging.  
+      **Hecho:** `dio_logger_interceptor.dart`; se registra solo si `enableNetworkLogging` es true.
+- [x] `lib/core/router/app_routes.dart` — paths y nombres de ruta estables (deep links después).  
+      **Hecho:** `AppRoutes.homePath` / `homeName`.
+- [x] `lib/core/router/app_router.dart` — `GoRouter` y rutas iniciales.  
+      **Hecho:** `createAppRouter(AppConfig)` con ruta `/` → `CounterPage`; `debugLogDiagnostics` en development.
 
 ---
 
 ## Fase 3 — Flavors ↔ config
 
-- [ ] Cada `main_development.dart` / `main_staging.dart` / `main_production.dart` construye la `AppConfig` correcta.
-- [ ] La config llega al árbol de widgets (holder/`InheritedWidget`/otro patrón acordado) **antes** de usar `Dio`/`GoRouter` si lo necesitan.
+- [x] Cada `main_development.dart` / `main_staging.dart` / `main_production.dart` construye la `AppConfig` correcta.  
+      **Hecho:** `AppConfig.development` / `staging` / `production` en cada `main_*`.
+- [ ] La config llega al árbol de widgets (holder/`InheritedWidget`/otro patrón acordado) **antes** de usar `Dio`/`GoRouter` si lo necesitan.  
+      **Parcial:** `App` recibe `AppConfig` y el router se crea con ella; falta exponer `Dio`/repos vía `InheritedWidget` o `provider` cuando haya capa de datos.
 
 ---
 
 ## Fase 4 — `App` con router
 
-- [ ] Sustituir `MaterialApp` + `home:` por `MaterialApp.router` enlazado a `GoRouter`.
-- [ ] Ruta inicial (home) y, si aplica, página 404.
+- [x] Sustituir `MaterialApp` + `home:` por `MaterialApp.router` enlazado a `GoRouter`.  
+      **Hecho:** `lib/app/view/app.dart` usa `routerConfig` y `createAppRouter`.
+- [x] Ruta inicial (home) y, si aplica, página 404.  
+      **Hecho:** home en `/`; 404 pendiente si la querés explícita (`GoRouter` puede tener `errorBuilder`).
 - [ ] Probar los tres flavors:
   - [ ] `flutter run --flavor development --target lib/main_development.dart`
   - [ ] `flutter run --flavor staging --target lib/main_staging.dart`

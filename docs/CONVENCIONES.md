@@ -10,9 +10,26 @@ Documento vivo: refleja los acuerdos de **Fase 0** y guía implementación en `l
 - **Tipos y clases expuestos** (páginas, cubits, blocs, entidades públicas del feature): **`PascalCase`** (ej. `UserProfilePage`, `OrderDetailCubit`).
 - **Barrel del feature:** `lib/features/<nombre>/<nombre>.dart` exporta lo que otros módulos o el router deben importar.
 
+### Estructura interna (carpetas)
+
+- **`presentation/pages/`** — pantallas enrutadas (`*_page.dart`). Opcional: `presentation/widgets/` para piezas solo de ese feature.
+- **`bloc/`** o **`cubit/`** — estado del feature (omitir si la pantalla es solo UI).
+- **`data/`**, **`domain/`** — cuando haya red o reglas de negocio (ver secciones siguientes).
+
+Dentro del feature, los imports entre capas del mismo módulo pueden ser **relativos**; hacia fuera del feature, **`package:flutter_very_good_example/...`**.
+
 ---
 
-## 2. Modelos de red y `json_serializable`
+## 2. Presentación compartida (`lib/core/presentation/`)
+
+- **Widgets y patrones UI reutilizables** entre varios features: loaders, diálogos genéricos, barras de error, etc.
+- Ubicación: `lib/core/presentation/widgets/` (un archivo por widget o grupo pequeño). Barrel: `presentation.dart`.
+- **No** mezclar aquí lógica de negocio ni acceso a repositorios: solo composición visual y `Theme.of` / callbacks.
+- Si un componente es **específico de un flujo de producto**, vivirá en el **`feature`** correspondiente para no inflar `core`.
+
+---
+
+## 3. Modelos de red y `json_serializable`
 
 Los tipos que reflejan **contrato con el backend** viven en `features/<nombre>/data/models/` (o la ruta equivalente acordada) y usan codegen cuando aplique.
 
@@ -32,7 +49,7 @@ Así **Request** no compite con un “Dto de envío”: el envío **es** un requ
 
 ---
 
-## 3. Dominio (`domain/`)
+## 4. Dominio (`domain/`)
 
 - Se usa **`domain/` en cada feature** (o al menos siempre que el feature tenga datos que no deben filtrarse tal cual desde la capa `data/`).
 - **Responsabilidad:** entidades y reglas que la **UI y el Bloc** consumen **después** de mapear lo que viene del API (o de otras fuentes). Lo que “luce como el JSON del servidor” permanece en **`data/`** (DTOs / Request / Response).
@@ -42,7 +59,7 @@ Si un feature es trivial (sin red y un solo modelo), igual podés mantener una c
 
 ---
 
-## 4. Router
+## 5. Router
 
 - **Un solo lugar** para la configuración de rutas: `lib/core/router/` (p. ej. `app_routes.dart`, `app_router.dart`).
 - Las **páginas** viven en `features/`; el router **importa** esas pantallas (o barrels) y **registra** cada ruta **explícitamente**. Sin auto-descubrimiento ni reflexión de rutas.
@@ -50,7 +67,7 @@ Si un feature es trivial (sin red y un solo modelo), igual podés mantener una c
 
 ---
 
-## 5. Tests
+## 6. Tests
 
 - Espejo de carpetas bajo `test/features/...` cuando existan features allí.
 - Helpers con `flutter_test` en `test/helpers/`; imports relativos desde cada test (ver checklist de implementación).
