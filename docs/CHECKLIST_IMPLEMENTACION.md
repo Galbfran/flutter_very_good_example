@@ -8,20 +8,29 @@ Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example
 
 ## Fase 0 — Acuerdos de equipo
 
-- [ ] Convención de nombres de features (`snake_case`) y de clases públicas (`PascalCase`).
-- [ ] Sufijos para DTOs (`*Dto` / `*Request` / `*Response`) si usarás `json_serializable`.
-- [ ] ¿Siempre hay carpeta `domain/` o solo cuando el feature tiene reglas de negocio claras?
-- [ ] Router **central** (`core/router`) que importa páginas desde `features/` (sin “auto-registro” mágico al inicio).
+- [x] Convención de nombres de features (`snake_case`) y de clases públicas (`PascalCase`).  
+      **Hecho:** detalle en `docs/CONVENCIONES.md` (sección 1); en el repo existe `lib/features/` para features nuevos. El template `counter` sigue en `lib/counter/` hasta la Fase 5.
+- [x] Sufijos para DTOs (`*Dto` / `*Request` / `*Response`) si usarás `json_serializable`.  
+      **Hecho:** reglas en `docs/CONVENCIONES.md` (sección 2): `*Response` hacia la app, `*Request` hacia el API, `*Dto` solo neutro/compartido.
+- [x] ¿Siempre hay carpeta `domain/` o solo cuando el feature tiene reglas de negocio claras?  
+      **Hecho:** usar **`domain/` en cada feature** (mínimo cuando haya datos a mapear desde `data/`); detalle en `docs/CONVENCIONES.md` (sección 3).
+- [x] Router **central** (`core/router`) que importa páginas desde `features/` (sin “auto-registro” mágico al inicio).  
+      **Hecho:** convención en `docs/CONVENCIONES.md` (sección 4); carpeta reservada en `lib/core/router/` (`.gitkeep`). Implementación de `app_router` / `app_routes` en Fase 2–4.
 
 ---
 
 ## Fase 1 — Dependencias
 
-- [ ] Añadir `go_router` y `dio` en `dependencies`.
-- [ ] Mantener `equatable` para estados/eventos de Bloc con varios campos.
-- [ ] Si habrá API con JSON: `json_annotation` + `json_serializable` + `build_runner` (en `dev_dependencies`).
-- [ ] `flutter pub get` sin conflictos.
-- [ ] `flutter analyze` en verde (o lista de issues aceptados documentada).
+- [x] Añadir `go_router` y `dio` en `dependencies`.  
+      **Hecho:** `go_router: ^17.0.0`, `dio: ^5.9.0` en `pubspec.yaml`.
+- [x] Mantener `equatable` para estados/eventos de Bloc con varios campos.  
+      **Hecho:** `equatable: ^2.0.7`.
+- [x] Si habrá API con JSON: `json_annotation` + `json_serializable` + `build_runner` (en `dev_dependencies`).  
+      **Hecho:** `json_annotation: ^4.9.0` en `dependencies`; `build_runner: ^2.5.4`, `json_serializable: ^6.9.5` en `dev_dependencies`.
+- [x] `flutter pub get` sin conflictos.  
+      **Hecho:** verificado.
+- [x] `flutter analyze` en verde (o lista de issues aceptados documentada).  
+      **Hecho:** sin issues al ejecutar `flutter analyze`.
 
 ---
 
