@@ -4,6 +4,10 @@
     "@counterAppBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     },
+    "counterPreviousLabel": "Previous",
+    "@counterPreviousLabel": {
+        "description": "Label for the previous counter value"
+    },
     "homeAppBarTitle": "Home",
     "@homeAppBarTitle": {
         "description": "AppBar title on the home screen"

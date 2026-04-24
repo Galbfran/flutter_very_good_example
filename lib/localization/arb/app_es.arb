@@ -4,6 +4,10 @@
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
     },
+    "counterPreviousLabel": "Anterior",
+    "@counterPreviousLabel": {
+        "description": "Etiqueta del valor anterior del contador"
+    },
     "homeAppBarTitle": "Inicio",
     "@homeAppBarTitle": {
         "description": "Título de la AppBar de la pantalla principal"

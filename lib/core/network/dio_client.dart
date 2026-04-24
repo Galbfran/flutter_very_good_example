@@ -3,7 +3,12 @@ import 'package:flutter_very_good_example/core/config/app_config.dart';
 import 'package:flutter_very_good_example/core/network/interceptors/dio_logger_interceptor.dart';
 
 /// Cliente HTTP compartido; baseUrl y timeouts según la config del flavor.
-Dio createDio(AppConfig config) {
+///
+/// [extraInterceptors] se insertan primero (útil para mocks o auth).
+Dio createDio(
+  AppConfig config, {
+  List<Interceptor> extraInterceptors = const [],
+}) {
   final dio = Dio(
     BaseOptions(
       baseUrl: config.apiBaseUrl,
@@ -12,6 +17,8 @@ Dio createDio(AppConfig config) {
       sendTimeout: const Duration(seconds: 15),
     ),
   );
+
+  extraInterceptors.forEach(dio.interceptors.add);
 
   if (config.enableNetworkLogging) {
     dio.interceptors.add(DioLoggerInterceptor());
