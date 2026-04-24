@@ -29,5 +29,26 @@ void main() {
         throwsA(isA<DioException>()),
       );
     });
+
+    test('defers to next when request is not POST to /example/adjust', () async {
+      dio = Dio(
+        BaseOptions(baseUrl: 'https://api-test.example.com'),
+      )..interceptors.addAll([
+          ExampleMockInterceptor(networkDelay: Duration.zero),
+          InterceptorsWrapper(
+            onRequest: (options, h) {
+              h.resolve(
+                Response<dynamic>(
+                  requestOptions: options,
+                  data: 'fallback',
+                ),
+              );
+            },
+          ),
+        ]);
+
+      final response = await dio.get<dynamic>('/health');
+      expect(response.data, 'fallback');
+    });
   });
 }

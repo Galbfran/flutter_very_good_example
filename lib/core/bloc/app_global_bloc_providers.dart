@@ -25,9 +25,12 @@ class AppGlobalBlocProviders extends StatelessWidget {
     if (providers.isEmpty) {
       return child;
     }
+    // Al añadir blocs globales, este bloque dejará de ser código muerto.
+    // coverage:ignore-start
     return MultiBlocProvider(
       providers: providers,
       child: child,
     );
+    // coverage:ignore-end
   }
 }

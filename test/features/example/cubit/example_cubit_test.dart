@@ -51,5 +51,18 @@ void main() {
         ),
       ],
     );
+
+    blocTest<ExampleCubit, ExampleCubitState>(
+      'emits loading then failure when decrement throws',
+      build: () => ExampleCubit(FailingExampleRepository()),
+      act: (cubit) => cubit.decrement(),
+      expect: () => const [
+        ExampleCubitState(status: ExampleCubitStatus.loading),
+        ExampleCubitState(
+          status: ExampleCubitStatus.failure,
+          errorMessage: 'Exception: simulated failure',
+        ),
+      ],
+    );
   });
 }

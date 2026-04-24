@@ -31,5 +31,33 @@ void main() {
       expect(next.current, 1);
       expect(next.previous, 2);
     });
+
+    test('throws when response body is null', () async {
+      dio = Dio(
+        BaseOptions(baseUrl: 'https://api-test.example.com'),
+      )..interceptors.add(
+          InterceptorsWrapper(
+            onRequest: (options, handler) {
+              handler.resolve(
+                Response<dynamic>(requestOptions: options),
+              );
+            },
+          ),
+        );
+      repository = ApiExampleRepository(dio: dio);
+
+      await expectLater(
+        repository.increment(
+          const ExampleSnapshot(current: 0, previous: 0),
+        ),
+        throwsA(
+          isA<StateError>().having(
+            (e) => e.message,
+            'message',
+            'Example API returned empty body',
+          ),
+        ),
+      );
+    });
   });
 }
