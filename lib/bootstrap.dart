@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_very_good_example/core/config/app_config.dart';
+import 'package:flutter_very_good_example/core/config/load_env.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -20,14 +22,26 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+/// Carga el `.env` del flavor, construye [AppConfig] y arranca la app.
+///
+/// [envAssetPath] es el posible **overlay** de flavor (p. ej.
+/// `env/.env.development`); se fusiona con `env/.env.example` (siempre
+/// requerido en `pubspec.yaml`).
+Future<void> bootstrap(
+  String envAssetPath,
+  AppFlavor flavor,
+  FutureOr<Widget> Function(AppConfig) builder,
+) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await loadEnvWithExampleBase(envAssetPath);
+
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   Bloc.observer = const AppBlocObserver();
 
-  // Add cross-flavor configuration here
-
-  runApp(await builder());
+  final config = AppConfig.fromFlavor(flavor);
+  runApp(await builder(config));
 }

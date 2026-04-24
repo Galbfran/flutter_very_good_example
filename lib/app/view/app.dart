@@ -13,6 +13,8 @@ import 'package:flutter_very_good_example/localization/localization.dart';
 import 'package:go_router/go_router.dart';
 
 class App extends StatefulWidget {
+  // [AppConfig] se construye en runtime desde el .env; no aplica un App const.
+
   const App({required this.config, super.key});
 
   final AppConfig config;

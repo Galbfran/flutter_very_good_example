@@ -113,5 +113,11 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
+# En git solo se versiona `env/.env.example`; el resto es copia local o CI
+env/.env
+env/.env.local
+env/.env.*
+!env/.env.example
+
 # Generated localization files
 lib/localization/gen/

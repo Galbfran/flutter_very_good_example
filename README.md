@@ -105,6 +105,8 @@ $ flutter run --flavor staging --target lib/main_staging.dart
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
+En **git** solo se versiona `env/.env.example`. Cada `main_*.dart` pide un overlay con nombre de flavor (`.env.development`, etc.): si el archivo **existe** en tu copia (por ejemplo tras `cp env/.env.example env/.env.development`), se fusiona con la plantilla y las claves del flavor **gana** para valores distintos. La carpeta `env/` en `pubspec.yaml` asegura que, al compilar, se incluyan esos archivos **locales** aunque no estén en el repositorio. [flutter_dotenv](https://pub.dev/packages/flutter_dotenv) se usa vía [loadEnvWithExampleBase](lib/core/config/load_env.dart) y [bootstrap](lib/bootstrap.dart). En CI o release podés fijar `API_BASE_URL` y `ENABLE_NETWORK_LOGGING` con **dart-define**; si el define no es vacío, sustituyen a lo leído del entorno. Los archivos `env/.env.*` (excepto `.example`) están en `.gitignore`.
+
 _\*La app compila y corre en iOS, Android, Web y Windows._
 
 ---

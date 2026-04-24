@@ -2,7 +2,7 @@
 
 Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example` y equipos que quieren un **base reutilizable** (sin cámara/ML u otros extras de producto).
 
-**Convenciones:** [CONVENCIONES.md](./CONVENCIONES.md) (estructura `features/`, `core/presentation`, DTOs, dominio, router).
+**Convenciones:** [CONVENCIONES.md](./CONVENCIONES.md) (estructura `features/`, `core/presentation`, DTOs, `Repository` vs `Service`, dominio, router).
 
 ---
 

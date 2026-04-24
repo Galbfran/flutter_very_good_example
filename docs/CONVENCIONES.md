@@ -49,17 +49,29 @@ Así **Request** no compite con un “Dto de envío”: el envío **es** un requ
 
 ---
 
-## 4. Dominio (`domain/`)
+## 4. `Repository` y `Service` (datos remotos vs dispositivo)
+
+- **`Repository`** — Contrato en **`domain/`** (`*Repository`) e implementación en **`data/`** (p. ej. `Api*Repository`). Nombre reservado para la **obtención o envío de datos “de producto”** que en la práctica del repo pasa casi siempre por **red** (Dio, DTOs, reglas de mapeo hacia el dominio). Alineado con el patrón del feature **example** (`ExampleRepository` / `ApiExampleRepository`).
+
+- **`Service`** — Clases de **acceso al entorno local del dispositivo o del SO** que **no** son un contrato HTTP: cámara, galería, **geolocalización**, sensores, almacenamiento de archivos, biometría, helpers de permisos, etc. Suelen vivir en `data/` del feature o, si las usan muchos módulos, bajo `lib/core/` con un nombre claro (p. ej. `LocationService`, `CameraService`). Un service **no** debería llamar al API directamente: si hay que subir algo, orquesta un **repository**.
+
+- **Composición** — Un flujo **grande o compuesto** (p. ej. “sacar foto, comprimir y subir en multipart”) puede implementarse en un **repository** que **use uno o varios `Service` por dentro** (cámara, archivos, compresión) y luego haga el **envío vía red** (Dio, `*Request` / `*Response`). Eso mantiene el límite: **plataforma en services, contrato y remoto en el repository**, sin mezclar plugins de cámara en el mismo sitio que el parseo de JSON suelto.
+
+- **Resumen** | `Repository` → datos hacia/desde el **mundo de negocio (típico: API)**. | `Service` → **capas locales / dispositivo**. | El **Bloc** sigue orquestando casos de uso; si el caso cruza cámara + subida, el repository es el sitio adecuado para componer services + cliente HTTP.
+
+---
+
+## 5. Dominio (`domain/`)
 
 - Se usa **`domain/` en cada feature** (o al menos siempre que el feature tenga datos que no deben filtrarse tal cual desde la capa `data/`).
-- **Responsabilidad:** entidades y reglas que la **UI y el Bloc** consumen **después** de mapear lo que viene del API (o de otras fuentes). Lo que “luce como el JSON del servidor” permanece en **`data/`** (DTOs / Request / Response).
-- **Flujo esperado:** `data` (contrato red) → mapeo → `domain` (modelo estable) → `bloc` / `presentation`.
+- **Responsabilidad:** entidades y reglas que la **UI y el Bloc** consumen **después** de mapear lo que viene del API (o de otras fuentes). Lo que “luce como el JSON del servidor” permanece en **`data/`** (DTOs / Request / Response). Los contratos `*Repository` viven en **`domain/`**; la relación con **Service** (dispositivo) y red está resumida en el **§4** anterior.
+- **Flujo esperado:** `data` (contrato con el API, implementaciones de repositorios, y *services* de plataforma usados bajo el capó) → mapeo → `domain` (modelo estable) → `bloc` / `presentation`.
 
 Si un feature es trivial (sin red y un solo modelo), igual podés mantener una carpeta `domain/` mínima para no romper el patrón del repo.
 
 ---
 
-## 5. Router
+## 6. Router
 
 - **Un solo lugar** para la configuración de rutas: `lib/core/router/` (p. ej. `app_routes.dart`, `app_router.dart`).
 - Las **páginas** viven en `features/`; el router **importa** esas pantallas (o barrels) y **registra** cada ruta **explícitamente**. Sin auto-descubrimiento ni reflexión de rutas.
@@ -67,7 +79,7 @@ Si un feature es trivial (sin red y un solo modelo), igual podés mantener una c
 
 ---
 
-## 6. Tests
+## 7. Tests
 
 - Espejo de carpetas bajo `test/features/...` cuando existan features allí, más `test/core/`, `test/app/`, etc. cuando corresponda.
 - Helpers con `flutter_test` en `test/helpers/` (p. ej. `pump_app.dart` y el barrel `helpers.dart`); imports relativos desde cada test (ver [checklist de implementación](./CHECKLIST_IMPLEMENTACION.md)).
