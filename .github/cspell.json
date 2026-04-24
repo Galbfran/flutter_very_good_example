@@ -1,6 +1,7 @@
 {
   "version": "0.2",
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "globRoot": "..",
   "dictionaries": ["vgv_allowed", "vgv_forbidden"],
   "dictionaryDefinitions": [
     {
@@ -15,8 +16,15 @@
     }
   ],
   "useGitignore": true,
+  "ignorePaths": [
+    "bricks/**",
+    "docs/**",
+    "lib/features/**/README.md"
+  ],
   "words": [
     "Contador",
+    "Ejemplo",
+    "ejemplo",
     "localizable",
     "mostrado",
     "página",

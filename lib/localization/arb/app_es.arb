@@ -1,20 +1,20 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
+    "exampleAppBarTitle": "Ejemplo",
+    "@exampleAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página de ejemplo"
     },
-    "counterPreviousLabel": "Anterior",
-    "@counterPreviousLabel": {
-        "description": "Etiqueta del valor anterior del contador"
+    "examplePreviousLabel": "Anterior",
+    "@examplePreviousLabel": {
+        "description": "Etiqueta del valor anterior del ejemplo"
     },
     "homeAppBarTitle": "Inicio",
     "@homeAppBarTitle": {
         "description": "Título de la AppBar de la pantalla principal"
     },
-    "homeOpenCounterButton": "Ir al contador",
-    "@homeOpenCounterButton": {
-        "description": "Botón que navega a la pantalla del contador"
+    "homeOpenExampleButton": "Ir al ejemplo",
+    "@homeOpenExampleButton": {
+        "description": "Botón que navega a la pantalla de ejemplo"
     },
     "notFoundPageTitle": "Página no encontrada",
     "@notFoundPageTitle": {

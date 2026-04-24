@@ -1,20 +1,20 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "exampleAppBarTitle": "Example",
+    "@exampleAppBarTitle": {
+        "description": "Text shown in the AppBar of the Example Page"
     },
-    "counterPreviousLabel": "Previous",
-    "@counterPreviousLabel": {
-        "description": "Label for the previous counter value"
+    "examplePreviousLabel": "Previous",
+    "@examplePreviousLabel": {
+        "description": "Label for the previous example value"
     },
     "homeAppBarTitle": "Home",
     "@homeAppBarTitle": {
         "description": "AppBar title on the home screen"
     },
-    "homeOpenCounterButton": "Open counter",
-    "@homeOpenCounterButton": {
-        "description": "Button that navigates to the counter screen"
+    "homeOpenExampleButton": "Open example",
+    "@homeOpenExampleButton": {
+        "description": "Button that navigates to the example screen"
     },
     "notFoundPageTitle": "Page not found",
     "@notFoundPageTitle": {

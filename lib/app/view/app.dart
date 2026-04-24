@@ -6,9 +6,9 @@ import 'package:flutter_very_good_example/core/bloc/app_global_bloc_providers.da
 import 'package:flutter_very_good_example/core/config/app_config.dart';
 import 'package:flutter_very_good_example/core/network/dio_client.dart';
 import 'package:flutter_very_good_example/core/router/app_router.dart';
-import 'package:flutter_very_good_example/features/counter/data/api_counter_repository.dart';
-import 'package:flutter_very_good_example/features/counter/data/interceptors/counter_mock_interceptor.dart';
-import 'package:flutter_very_good_example/features/counter/domain/counter_repository.dart';
+import 'package:flutter_very_good_example/features/example/data/api_example_repository.dart';
+import 'package:flutter_very_good_example/features/example/data/interceptors/example_mock_interceptor.dart';
+import 'package:flutter_very_good_example/features/example/domain/example_repository.dart';
 import 'package:flutter_very_good_example/localization/localization.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,7 +24,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   late final Dio _dio = createDio(
     widget.config,
-    extraInterceptors: [CounterMockInterceptor()],
+    extraInterceptors: [ExampleMockInterceptor()],
   );
 
   late final GoRouter _router = createAppRouter(widget.config);
@@ -37,8 +37,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<CounterRepository>(
-      create: (_) => ApiCounterRepository(dio: _dio),
+    return RepositoryProvider<ExampleRepository>(
+      create: (_) => ApiExampleRepository(dio: _dio),
       child: AppGlobalBlocProviders(
         child: MaterialApp.router(
           theme: AppTheme.light(),

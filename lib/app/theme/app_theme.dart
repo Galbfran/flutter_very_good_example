@@ -6,12 +6,13 @@ import 'package:flutter_very_good_example/app/theme/app_colors.dart';
 /// Para modo oscuro, añadí un método análogo y configurá `themeMode`.
 abstract final class AppTheme {
   static ThemeData light() {
-    final colorScheme = ColorScheme.fromSeed(
-      seedColor: AppColors.brand,
-    ).copyWith(
-      secondary: AppColors.accent,
-      error: AppColors.danger,
-    );
+    final colorScheme =
+        ColorScheme.fromSeed(
+          seedColor: AppColors.brand,
+        ).copyWith(
+          secondary: AppColors.accent,
+          error: AppColors.danger,
+        );
 
     const radius = 12.0;
     final cardShape = RoundedRectangleBorder(

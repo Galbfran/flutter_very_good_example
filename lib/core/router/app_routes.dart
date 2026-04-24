@@ -18,9 +18,9 @@ abstract final class AppRoutes {
     name: 'home',
   );
 
-  static const AppRoute counter = AppRoute(
-    path: '/counter',
-    name: 'counter',
+  static const AppRoute example = AppRoute(
+    path: '/example',
+    name: 'example',
   );
 
   static const AppRoute error = AppRoute(

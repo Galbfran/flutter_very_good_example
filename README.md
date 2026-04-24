@@ -82,9 +82,9 @@ This project follows the [official internationalization guide for Flutter][inter
 ```arb
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "exampleAppBarTitle": "Example",
+    "@exampleAppBarTitle": {
+        "description": "Text shown in the AppBar of the Example Page"
     },
     "helloWorld": "Hello World",
     "@helloWorld": {
@@ -139,9 +139,9 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 ```arb
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
+    "exampleAppBarTitle": "Ejemplo",
+    "@exampleAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página de ejemplo"
     },
     "helloWorld": "Hola Mundo",
     "@helloWorld": {

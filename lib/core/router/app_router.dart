@@ -4,7 +4,7 @@ import 'package:flutter_very_good_example/core/router/app_routes.dart';
 import 'package:flutter_very_good_example/core/router/pages/access_denied_page.dart';
 import 'package:flutter_very_good_example/core/router/pages/error_page.dart';
 import 'package:flutter_very_good_example/core/router/pages/not_found_page.dart';
-import 'package:flutter_very_good_example/features/counter/counter.dart';
+import 'package:flutter_very_good_example/features/example/example.dart';
 import 'package:flutter_very_good_example/features/home/home.dart';
 import 'package:flutter_very_good_example/features/splash/splash.dart';
 import 'package:go_router/go_router.dart';
@@ -27,9 +27,9 @@ GoRouter createAppRouter(AppConfig config) {
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
-        path: AppRoutes.counter.path,
-        name: AppRoutes.counter.name,
-        builder: (context, state) => const CounterPage(),
+        path: AppRoutes.example.path,
+        name: AppRoutes.example.name,
+        builder: (context, state) => const ExamplePage(),
       ),
       GoRoute(
         path: AppRoutes.error.path,

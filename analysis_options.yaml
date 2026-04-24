@@ -4,6 +4,7 @@ include:
 analyzer:
   exclude:
     - lib/localization/gen/*
+    - bricks/**/__brick__/**
 linter:
   rules:
     public_member_api_docs: false

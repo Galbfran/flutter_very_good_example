@@ -15,9 +15,9 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
         child: FilledButton.icon(
-          onPressed: () => context.push(AppRoutes.counter.path),
+          onPressed: () => context.push(AppRoutes.example.path),
           icon: const Icon(Icons.calculate_outlined),
-          label: Text(localization.homeOpenCounterButton),
+          label: Text(localization.homeOpenExampleButton),
         ),
       ),
     );
