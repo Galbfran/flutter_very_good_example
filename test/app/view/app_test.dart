@@ -28,17 +28,17 @@ void main() {
     testWidgets(
       'dispose closes resources when widget is removed',
       (tester) async {
-      await tester.pumpWidget(
-        const App(config: AppConfig.forTesting),
-      );
-      await tester.pumpAndSettle();
-      await tester.pumpWidget(
-        const Directionality(
-          textDirection: TextDirection.ltr,
-          child: SizedBox.shrink(),
-        ),
-      );
-    },
+        await tester.pumpWidget(
+          const App(config: AppConfig.forTesting),
+        );
+        await tester.pumpAndSettle();
+        await tester.pumpWidget(
+          const Directionality(
+            textDirection: TextDirection.ltr,
+            child: SizedBox.shrink(),
+          ),
+        );
+      },
     );
   });
 }

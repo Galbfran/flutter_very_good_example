@@ -1,3 +1,5 @@
+import 'dart:async' show unawaited;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,10 +11,30 @@ import 'package:flutter_very_good_example/core/router/pages/error_page.dart';
 import 'package:flutter_very_good_example/core/router/pages/not_found_page.dart';
 import 'package:flutter_very_good_example/features/example/domain/example_repository.dart';
 import 'package:flutter_very_good_example/features/example/presentation/pages/example_page.dart';
-import 'package:flutter_very_good_example/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_very_good_example/localization/localization.dart';
 
 import '../../features/example/support/example_test_doubles.dart';
+
+/// El splash usa un `CircularProgressIndicator` con animación continua.
+/// `WidgetTester.pumpAndSettle` no vuelve hasta alcanzar el timeout largo.
+Future<void> _pumpAfterSplash(WidgetTester tester) async {
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 800));
+  await tester.pump();
+}
+
+/// Tras navegar o un tap, sin exigir “idle” con animación infinita.
+Future<void> _pumpAfterRouteChange(WidgetTester tester) async {
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 100));
+}
+
+Finder _primaryButtonOnPage(Type page) {
+  return find.descendant(
+    of: find.byType(page),
+    matching: find.byType(FilledButton),
+  );
+}
 
 void main() {
   group('createAppRouter', () {
@@ -31,32 +53,33 @@ void main() {
             ),
           ),
         );
-        await tester.pumpAndSettle();
+        await _pumpAfterSplash(tester);
 
         router.go('${AppRoutes.error.path}?message=hola');
-        await tester.pumpAndSettle();
+        await _pumpAfterRouteChange(tester);
         expect(find.byType(ErrorPage), findsOneWidget);
-        await tester.tap(find.byType(FilledButton));
-        await tester.pumpAndSettle();
-        expect(find.byType(HomePage), findsOneWidget);
+        await tester.tap(_primaryButtonOnPage(ErrorPage));
+        await _pumpAfterRouteChange(tester);
+        expect(router.state.matchedLocation, AppRoutes.home.path);
 
         router.go('/ruta-que-no-existe');
-        await tester.pumpAndSettle();
+        await _pumpAfterRouteChange(tester);
         expect(find.byType(NotFoundPage), findsOneWidget);
-        await tester.tap(find.byType(FilledButton));
-        await tester.pumpAndSettle();
-        expect(find.byType(HomePage), findsOneWidget);
+        await tester.tap(_primaryButtonOnPage(NotFoundPage));
+        await _pumpAfterRouteChange(tester);
+        expect(router.state.matchedLocation, AppRoutes.home.path);
 
         router.go(AppRoutes.accessDenied.path);
-        await tester.pumpAndSettle();
+        await _pumpAfterRouteChange(tester);
         expect(find.byType(AccessDeniedPage), findsOneWidget);
-        await tester.tap(find.byType(FilledButton));
-        await tester.pumpAndSettle();
-        expect(find.byType(HomePage), findsOneWidget);
+        await tester.tap(_primaryButtonOnPage(AccessDeniedPage));
+        await _pumpAfterRouteChange(tester);
+        expect(router.state.matchedLocation, AppRoutes.home.path);
 
         router.go(AppRoutes.example.path);
-        await tester.pumpAndSettle();
+        await _pumpAfterRouteChange(tester);
         expect(find.byType(ExamplePage), findsOneWidget);
+        expect(router.state.matchedLocation, AppRoutes.example.path);
       },
     );
 
@@ -73,26 +96,35 @@ void main() {
           ),
         ),
       );
-      await tester.pumpAndSettle();
-      expect(find.byType(HomePage), findsOneWidget);
+      await _pumpAfterSplash(tester);
+      expect(router.state.matchedLocation, AppRoutes.home.path);
 
-      await router.push('${AppRoutes.error.path}?message=%20%20%20');
-      await tester.pumpAndSettle();
+      // [GoRouter.push] no completa el Future hasta el pop de la ruta: no
+      // usar await o el test se bloquea antes del tap.
+      unawaited(
+        router.push<String?>('${AppRoutes.error.path}?message=%20%20%20'),
+      );
+      await _pumpAfterRouteChange(tester);
       expect(find.byType(ErrorPage), findsOneWidget);
-      await tester.tap(find.byType(FilledButton));
-      await tester.pumpAndSettle();
-      expect(find.byType(HomePage), findsOneWidget);
+      await tester.tap(_primaryButtonOnPage(ErrorPage));
+      await _pumpAfterRouteChange(tester);
+      expect(router.state.matchedLocation, AppRoutes.home.path);
 
       final msg = Uri.encodeComponent('  ok  ');
-      await router.push('${AppRoutes.error.path}?message=$msg');
-      await tester.pumpAndSettle();
+      unawaited(router.push<String?>('${AppRoutes.error.path}?message=$msg'));
+      await _pumpAfterRouteChange(tester);
       expect(find.textContaining('ok'), findsOneWidget);
-      await tester.tap(find.byType(OutlinedButton));
-      await tester.pumpAndSettle();
-      expect(find.byType(HomePage), findsOneWidget);
+      await tester.tap(
+        find.descendant(
+          of: find.byType(ErrorPage),
+          matching: find.byType(OutlinedButton),
+        ),
+      );
+      await _pumpAfterRouteChange(tester);
+      expect(router.state.matchedLocation, AppRoutes.home.path);
 
       router.go(AppRoutes.error.path);
-      await tester.pumpAndSettle();
+      await _pumpAfterRouteChange(tester);
       expect(find.byType(ErrorPage), findsOneWidget);
     });
   });

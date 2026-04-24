@@ -33,17 +33,19 @@ void main() {
     });
 
     test('throws when response body is null', () async {
-      dio = Dio(
-        BaseOptions(baseUrl: 'https://api-test.example.com'),
-      )..interceptors.add(
-          InterceptorsWrapper(
-            onRequest: (options, handler) {
-              handler.resolve(
-                Response<dynamic>(requestOptions: options),
-              );
-            },
-          ),
-        );
+      dio =
+          Dio(
+              BaseOptions(baseUrl: 'https://api-test.example.com'),
+            )
+            ..interceptors.add(
+              InterceptorsWrapper(
+                onRequest: (options, handler) {
+                  handler.resolve(
+                    Response<dynamic>(requestOptions: options),
+                  );
+                },
+              ),
+            );
       repository = ApiExampleRepository(dio: dio);
 
       await expectLater(
