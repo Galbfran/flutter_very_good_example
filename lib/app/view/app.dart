@@ -3,7 +3,7 @@ import 'package:flutter_very_good_example/app/theme/app_theme.dart';
 import 'package:flutter_very_good_example/core/bloc/app_global_bloc_providers.dart';
 import 'package:flutter_very_good_example/core/config/app_config.dart';
 import 'package:flutter_very_good_example/core/router/app_router.dart';
-import 'package:flutter_very_good_example/l10n/l10n.dart';
+import 'package:flutter_very_good_example/localization/localization.dart';
 import 'package:go_router/go_router.dart';
 
 class App extends StatefulWidget {

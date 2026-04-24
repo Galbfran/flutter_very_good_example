@@ -1,0 +1,47 @@
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Counter",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "homeAppBarTitle": "Home",
+    "@homeAppBarTitle": {
+        "description": "AppBar title on the home screen"
+    },
+    "homeOpenCounterButton": "Open counter",
+    "@homeOpenCounterButton": {
+        "description": "Button that navigates to the counter screen"
+    },
+    "notFoundPageTitle": "Page not found",
+    "@notFoundPageTitle": {
+        "description": "Title when route does not exist"
+    },
+    "notFoundPageBody": "This route doesn't exist or was moved.",
+    "@notFoundPageBody": {
+        "description": "Not found message body"
+    },
+    "errorPageTitle": "Something went wrong",
+    "@errorPageTitle": {
+        "description": "Generic error screen title"
+    },
+    "errorPageDefaultMessage": "An unexpected error occurred.",
+    "@errorPageDefaultMessage": {
+        "description": "Default error screen message"
+    },
+    "accessDeniedPageTitle": "Access denied",
+    "@accessDeniedPageTitle": {
+        "description": "No permission title"
+    },
+    "accessDeniedPageBody": "You don't have permission to view this content.",
+    "@accessDeniedPageBody": {
+        "description": "No permission body"
+    },
+    "coreGoHomeButton": "Go to home",
+    "@coreGoHomeButton": {
+        "description": "Back to home on system pages"
+    },
+    "coreTryAgainButton": "Go back",
+    "@coreTryAgainButton": {
+        "description": "Pop error screen when stack allows"
+    }
+}

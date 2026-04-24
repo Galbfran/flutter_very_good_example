@@ -113,5 +113,5 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-# Generated l10n files
-lib/l10n/gen/
+# Generated localization files
+lib/localization/gen/

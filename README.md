@@ -77,7 +77,7 @@ This project follows the [official internationalization guide for Flutter][inter
 
 ### Adding Strings
 
-1. To add a new localizable string, open the `app_en.arb` file at `lib/l10n/arb/app_en.arb` and add a new key/value pair with the relevant description (optional):
+1. To add a new localizable string, open the `app_en.arb` file at `lib/localization/arb/app_en.arb` and add a new key/value pair with the relevant description (optional):
 
 ```arb
 {
@@ -96,12 +96,12 @@ This project follows the [official internationalization guide for Flutter][inter
 1. Use the new string:
 
 ```dart
-import 'package:flutter_very_good_example/l10n/l10n.dart';
+import 'package:flutter_very_good_example/localization/localization.dart';
 
 @override
 Widget build(BuildContext context) {
-  final l10n = context.l10n;
-  return Text(l10n.helloWorld);
+  final localization = context.localization;
+  return Text(localization.helloWorld);
 }
 ```
 
@@ -123,10 +123,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 
 ### Adding Translations
 
-1. For each supported locale, add a new ARB file in `lib/l10n/arb`:
+1. For each supported locale, add a new ARB file in `lib/localization/arb`:
 
 ```
-├── l10n
+├── localization
 │   ├── arb
 │   │   ├── app_en.arb
 │   │   └── app_es.arb
@@ -155,7 +155,7 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 To use the latest translations changes, you will need to generate them:
 
 ```sh
-flutter gen-l10n --arb-dir="lib/l10n/arb"
+flutter gen-l10n --arb-dir="lib/localization/arb"
 ```
 
 Alternatively, run `flutter run` and code generation will take place automatically.

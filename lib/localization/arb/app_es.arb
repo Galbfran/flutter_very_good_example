@@ -1,0 +1,47 @@
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Contador",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "homeAppBarTitle": "Inicio",
+    "@homeAppBarTitle": {
+        "description": "Título de la AppBar de la pantalla principal"
+    },
+    "homeOpenCounterButton": "Ir al contador",
+    "@homeOpenCounterButton": {
+        "description": "Botón que navega a la pantalla del contador"
+    },
+    "notFoundPageTitle": "Página no encontrada",
+    "@notFoundPageTitle": {
+        "description": "Título cuando la ruta no existe"
+    },
+    "notFoundPageBody": "La ruta no existe o fue movida.",
+    "@notFoundPageBody": {
+        "description": "Mensaje de ruta no encontrada"
+    },
+    "errorPageTitle": "Algo salió mal",
+    "@errorPageTitle": {
+        "description": "Título de pantalla de error genérico"
+    },
+    "errorPageDefaultMessage": "Ocurrió un error inesperado.",
+    "@errorPageDefaultMessage": {
+        "description": "Mensaje por defecto en pantalla de error"
+    },
+    "accessDeniedPageTitle": "Acceso no permitido",
+    "@accessDeniedPageTitle": {
+        "description": "Título sin permiso"
+    },
+    "accessDeniedPageBody": "No tenés permiso para ver este contenido.",
+    "@accessDeniedPageBody": {
+        "description": "Cuerpo sin permiso"
+    },
+    "coreGoHomeButton": "Ir al inicio",
+    "@coreGoHomeButton": {
+        "description": "Botón volver al inicio en páginas de sistema"
+    },
+    "coreTryAgainButton": "Volver",
+    "@coreTryAgainButton": {
+        "description": "Botón para cerrar pantalla de error si hay stack"
+    }
+}

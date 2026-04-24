@@ -3,7 +3,7 @@ include:
   - package:bloc_lint/recommended.yaml
 analyzer:
   exclude:
-    - lib/l10n/gen/*
+    - lib/localization/gen/*
 linter:
   rules:
     public_member_api_docs: false

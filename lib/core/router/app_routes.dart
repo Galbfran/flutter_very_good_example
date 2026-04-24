@@ -22,4 +22,14 @@ abstract final class AppRoutes {
     path: '/counter',
     name: 'counter',
   );
+
+  static const AppRoute error = AppRoute(
+    path: '/error',
+    name: 'error',
+  );
+
+  static const AppRoute accessDenied = AppRoute(
+    path: '/access-denied',
+    name: 'access_denied',
+  );
 }
