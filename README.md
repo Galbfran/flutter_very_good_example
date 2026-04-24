@@ -8,6 +8,10 @@ Generado con [Very Good CLI][very_good_cli_link] 🤖
 
 Ejemplo de proyecto Very Good CLI.
 
+### Alcance de este repositorio
+
+**Incluye** un arranque reutilizable: Very Good, flavors, router, red (Dio + interceptor de log), un feature de ejemplo (cubit, dominio, API simulada), localización, tests y CI. **No incluye** por diseño integraciones de producto como cámara, ML, mapas, analytics, etc. Una carpeta `packages/` para módulos internos (monorepo) es **opcional** y no forma parte de este esqueleto; en ese caso, conviene **documentar** las convenciones en el propio módulo o en `docs/`.
+
 ---
 
 ## Arquitectura del proyecto

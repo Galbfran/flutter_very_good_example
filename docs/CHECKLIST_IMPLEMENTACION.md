@@ -20,6 +20,7 @@ Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example
 | Localización (`l10n.yaml`, `localization/arb/`, `gen/`, delegados en `App`) | Hecho |
 | Inyección: `RepositoryProvider<ExampleRepository>`; `Dio` creado en `App` y pasado al repo (no expuesto como `Provider<Dio>`) | Hecho |
 | Feature **example**: `domain/`, `data/` (API + interceptor mock), `json_serializable` en respuesta | Hecho |
+| README: arquitectura, PR/CI, Mason + codegen, alcance del ejemplo | Hecho |
 | Deep links en stores | Pendiente |
 
 ---
@@ -108,16 +109,16 @@ Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example
 
 - [x] DTO de ejemplo en `features/example/data/models/` + `*.g.dart` (`ExampleAdjustResponse`, `build_runner`).
 - [x] Repositorio: `ApiExampleRepository` parsea respuesta → `ExampleSnapshot` / dominio para el Cubit.
-- [ ] Documentar en README: `dart run build_runner build --delete-conflicting-outputs` (o `watch`) al añadir o cambiar modelos JSON.
+- [x] Documentar codegen JSON en README: sección [Mason: plantillas de código](../README.md#mason-plantillas-de-código-feature_counter_base) (paso `build_runner`); comando también en [Comandos útiles](#comandos-útiles) de este documento.
 
 ---
 
 ## Fase 8 — Tests
 
 - [x] Espejo `test/features/<feature>/presentation/pages/` (y `cubit/` donde aplique).
-- [x] `test/helpers/pump_app.dart` + imports relativos a `helpers`.
+- [x] `test/helpers/pump_app.dart` + barrel `helpers.dart` + imports relativos a `helpers`.
 - [x] Tests de Cubit con `bloc_test` (`test/features/example/cubit/...`).
-- [ ] (Opcional) `pumpRouterApp` o helper que monte `MaterialApp.router` + rutas para tests de integración de navegación.
+- [x] Tests de navegación con `GoRouter` en `test/core/router/app_router_test.dart` (no hace falta un helper con nombre fijo; opcional: extraer un `pumpRouterApp` a `test/helpers` si se repite mucho).
 
 **Nota:** helpers con `flutter_test` solo en `test/` (no bajo `lib/`).
 
@@ -134,9 +135,9 @@ Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example
 
 ## Fase 10 — Base reutilizable y CI
 
-- [ ] README: qué **incluye** y **excluye** el base (sin cámara/ML; paquetes en `packages/` aparte); comando **codegen** JSON (ver Fase 7).
-- [x] CI en `.github/workflows/main.yaml`: workflows Very Good (`flutter_package` con `run_bloc_lint`, spell-check, semantic PR).
-- [ ] (Opcional) `packages/` con nota para paquetes internos.
+- [x] README en la raíz: [arquitectura](../README.md#arquitectura-del-proyecto), [PR y CI](../README.md#pull-requests-qué-tener-en-cuenta), [alcance del repositorio](../README.md#alcance-de-este-repositorio), [Mason + `build_runner`](../README.md#mason-plantillas-de-código-feature_counter_base).
+- [x] CI: `.github/workflows/main.yaml` — `semantic-pull-request`, `build` (Very Good `flutter_package` con `run_bloc_lint: true`, formato, análisis, tests con cobertura), `spell-check` sobre `**/*.md` (CSpell vía [`.github/cspell.json`](../.github/cspell.json), inglés + español y palabras de proyecto). Workflow aparte `license_check.yaml` si cambia `pubspec.yaml` o el flujo.
+- [ ] (Opcional) Carpeta `packages/` y documentación de módulos internos si el monorepo crece.
 
 ---
 
@@ -147,14 +148,15 @@ Marca cada ítem al completarlo. Pensado para el repo `flutter_very_good_example
 | Dependencias | `flutter pub get` |
 | Análisis | `flutter analyze` |
 | Tests | `flutter test` |
-| Tests + cobertura (Very Good) | `very_good test --coverage --test-randomize-ordering-seed random` |
-| Codegen JSON | `dart run build_runner build --delete-conflicting-outputs` |
+| Tests + cobertura (Very Good) | `very_good test --coverage --test-randomize-ordering-seed random` (en CI, cobertura sobre `lib/` con umbral mínimo) |
+| Codegen JSON | `dart run build_runner build --delete-conflicting-outputs` (o `watch` en local) |
+| Informe HTML de cobertura (local) | `genhtml coverage/lcov.info` → ver [README, sección Tests](../README.md#tests) |
 
 ---
 
 ## Dependencia entre fases
 
-**Fase 7** (ampliar DTOs y documentación README) a medida que crezca la API. **Fase 3** (inyección) ya aplicada al **example**; repetir patrón para nuevos repos. **Fase 9** cuando el producto requiera enlaces externos.
+**Fase 7** (ampliar DTOs; el codegen y el README/Mason ya están alineados) a medida que crezca la API. **Fase 3** (inyección) ya aplicada al **example**; repetir patrón para nuevos repos. **Fase 9** cuando el producto requiera enlaces externos.
 
 ### Mason (opcional)
 

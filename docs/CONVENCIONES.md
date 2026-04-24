@@ -69,8 +69,9 @@ Si un feature es trivial (sin red y un solo modelo), igual podés mantener una c
 
 ## 6. Tests
 
-- Espejo de carpetas bajo `test/features/...` cuando existan features allí.
-- Helpers con `flutter_test` en `test/helpers/`; imports relativos desde cada test (ver checklist de implementación).
+- Espejo de carpetas bajo `test/features/...` cuando existan features allí, más `test/core/`, `test/app/`, etc. cuando corresponda.
+- Helpers con `flutter_test` en `test/helpers/` (p. ej. `pump_app.dart` y el barrel `helpers.dart`); imports relativos desde cada test (ver [checklist de implementación](./CHECKLIST_IMPLEMENTACION.md)).
+- En CI, **Very Good** corre `very_good test` con cobertura sobre `lib/` y umbral mínimo: conviene reproducirlo en local antes de abrir un PR.
 
 ---
 
