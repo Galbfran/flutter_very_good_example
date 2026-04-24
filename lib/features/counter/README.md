@@ -60,15 +60,32 @@ En `App` se construye `Dio` (`createDio`) con interceptors opcionales y se regis
 
 El barrel `counter.dart` exporta dominio, cubit, página y vista; **no** exporta la implementación en `data/` para no acoplar otras partes al HTTP concreto.
 
-## Tests (referencia)
+## Tests
 
-| Capa        | Enfoque típico |
-|------------|----------------|
-| Cubit      | `bloc_test` + implementación fake de `CounterRepository` |
-| `ApiCounterRepository` | `Dio` + `CounterMockInterceptor` con delay cero |
-| Widgets    | `MockCubit<CounterCubitState>` + `BlocProvider.value` |
+Estructura en `test/features/counter/` (espejo del feature + `support/`):
 
-Los tests viven en `test/features/counter/`, espejando esta estructura.
+```text
+test/features/counter/
+├── support/
+│   ├── counter_mock_cubit.dart    # MockCubit<CounterCubitState>
+│   └── counter_test_doubles.dart    # FakeCounterRepository, FailingCounterRepository
+├── cubit/
+├── domain/
+├── data/
+│   ├── api_counter_repository_test.dart
+│   └── interceptors/
+└── presentation/
+    ├── pages/
+    └── widgets/
+```
+
+| Capa | Enfoque |
+|------|---------|
+| Dominio | Igualdad de `CounterSnapshot` (u otras reglas futuras). |
+| Cubit | `bloc_test` + doubles en `support/`. |
+| Data / interceptor | `Dio` + `CounterMockInterceptor` (delay cero) o cuerpo inválido. |
+| Página | `RepositoryProvider` + repo simulado + `pumpApp`. |
+| Widgets | `MockCounterCubit` + **`BlocProvider<CounterCubit>.value`** (requerido para `BlocSelector` / `BlocListener`). |
 
 ## Documentación del proyecto
 
