@@ -119,6 +119,19 @@ Para ejecutar tests unitarios y de widget (con el mismo enfoque que en CI, inclu
 $ very_good test --coverage --test-randomize-ordering-seed random
 ```
 
+### Antes de subir cambios (igual que el job `build` del CI)
+
+El workflow [`.github/workflows/main.yaml`](.github/workflows/main.yaml) delega en [`flutter_package.yml`](https://github.com/VeryGoodOpenSource/very_good_workflows/blob/main/.github/workflows/flutter_package.yml) de Very Good: formato, análisis, *bloc lint* y `very_good test` con cobertura mínima y *report* sobre `lib/`. Replicá eso en local con [Very Good CLI](https://pub.dev/packages/very_good_cli) instalado (`dart pub global activate very_good_cli`) y, desde la raíz del repo:
+
+```bash
+dart format --set-exit-if-changed lib test && \
+flutter analyze lib test && \
+dart run bloc_tools:bloc lint . && \
+very_good test -j 4 --optimization --coverage --min-coverage 100 --report-on "lib" --show-uncovered --test-randomize-ordering-seed random
+```
+
+Si esto pasa, tenés el mismo “paquete” de comprobaciones que el job `build` (el chequeo de ortografía en `**/*.md` con CSpell y el título Conventional del PR corren en GitHub, no hace falta duplicarlos en local salvo que quieras).
+
 Para generar y abrir un **informe HTML de cobertura** hace falta [lcov](https://github.com/linux-test-project/lcov) (p. ej. en macOS: `brew install lcov`):
 
 ```sh
