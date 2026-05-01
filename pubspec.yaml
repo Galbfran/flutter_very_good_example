@@ -25,7 +25,7 @@ dev_dependencies:
   bloc_lint: ^0.4.1
   bloc_test: ^10.0.0
   bloc_tools: ^0.1.0-dev.23
-  build_runner: ^2.5.4
+  build_runner: ^2.15.0
   flutter_test:
     sdk: flutter
   json_serializable: ^6.9.5
